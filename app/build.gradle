@@ -1,15 +1,23 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.github.ben-manes.versions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
     defaultConfig {
-        applicationId "pavel_pratasavitski.soundplayhelper"
-        minSdkVersion 17
-        targetSdkVersion 26
+        applicationId versions.appId
+        minSdkVersion versions.minSdk
+        targetSdkVersion versions.targetSdk
+
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
+
+        renderscriptTargetApi versions.targetApi
+        renderscriptSupportModeEnabled true
     }
     buildTypes {
         release {
@@ -17,14 +25,50 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    buildToolsVersion '26.0.2'
+}
+
+repositories {
+    jcenter()
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    })
-    compile 'com.android.support:appcompat-v7:26.+'
-    compile 'com.android.support:design:26.+'
-    testCompile 'junit:junit:4.12'
+    // Support libs
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile libraries.supportAnnotations
+    compile libraries.supportAppCompat
+    compile libraries.supportDesign
+    compile libraries.supportCardView
+    compile libraries.supportRecyclerView
+    compile libraries.supportCardView
+    compile libraries.supportConstraintLayout
+
+    //Moxy lib
+    compile libraries.moxy
+    annotationProcessor libraries.moxyCompiler
+
+    //Dagger 2 lib
+    compile libraries.dagger
+    annotationProcessor libraries.daggerCompiler
+
+    //Retrofit2 lib
+    compile libraries.retrofit
+    compile libraries.retrofitGsonConverter
+    compile libraries.retrofitAdapter
+
+    //ButterKnife lib
+    compile libraries.butterKnife
+    annotationProcessor libraries.butterKnifeCompiler
+
+    //rxJava/Android
+    compile libraries.rxJava
+    compile libraries.rxAndroid
+
+    //Glide
+    compile libraries.glide
+    annotationProcessor libraries.glideCompiler
+
+    //cicerone
+    compile libraries.cicerone
 }
