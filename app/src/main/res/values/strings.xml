@@ -10,7 +10,18 @@
     <string name="error_invalid_password">This password is too short</string>
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
-    <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
-    </string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_filters">Filters</string>
+
+    <string name="songs">SONGS</string>
+    <string name="favorites">FAVORITES</string>
+    <string name="setlists">SETLISTS</string>
+    <string name="account">ACCOUNT</string>
+    <string name="refresh">Refresh</string>
+    <string name="add_song">Add song</string>
+    <string name="sorting">Sorting (upload date)</string>
 </resources>
