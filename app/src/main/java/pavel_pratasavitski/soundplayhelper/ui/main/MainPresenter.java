@@ -24,7 +24,7 @@ public class MainPresenter extends BaseMvpPresenter<MainPresenterView> {
     void onNavigationItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_songs:
-//                router.replaceScreen(Constants.Screens.SONGS_FRAGMENT, item.getTitle());
+                router.replaceScreen(Constants.Screens.SONGS_FRAGMENT, item.getTitle());
 
                 break;
             case R.id.nav_favorites:
