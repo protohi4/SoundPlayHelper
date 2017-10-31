@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.CursorLoader;
 import android.content.Loader;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -24,6 +25,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import pavel_pratasavitski.soundplayhelper.R;
+import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpActivity;
 import pavel_pratasavitski.soundplayhelper.ui.main.MainActivity;
 
@@ -221,7 +223,14 @@ public class LoginActivity extends BaseMvpActivity implements LoginActivityView,
 
     @Override
     public void startMainActivity(String token) {
-        MainActivity.start(LoginActivity.this, token);
+        SharedPreferences settings = getSharedPreferences(
+                Constants.SHARED_PREFERENCES, 0);
+        SharedPreferences.Editor editor = settings.edit();
+        editor.putString(Constants.Extras.TOKEN, token);
+        editor.apply();
+
+        MainActivity.start(LoginActivity.this, null);
+        finish();
     }
 
 

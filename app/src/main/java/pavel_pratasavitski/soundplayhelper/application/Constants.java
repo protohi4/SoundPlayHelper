@@ -8,6 +8,8 @@ public class Constants {
     public static final String USERNAME = "vb";
     public static final String PASSWORD = "GodIsMyAll";
 
+    public static final String SHARED_PREFERENCES = "preferences_file";
+
     public interface NetworkingConfig {
         int TIMEOUT = 20;
     }

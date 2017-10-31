@@ -22,6 +22,7 @@ import pavel_pratasavitski.soundplayhelper.R;
 import pavel_pratasavitski.soundplayhelper.application.BaseApplication;
 import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpActivity;
+import pavel_pratasavitski.soundplayhelper.ui.Sound.SoundsFragment;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
@@ -51,6 +52,8 @@ public class MainActivity extends BaseMvpActivity
 //    @BindView(R.id.activity_main_swipe_refresh)
 //    SwipeRefreshLayout swipeRefreshLayout;
 
+    private String token;
+
     private Navigator navigator = new SupportAppNavigator(MainActivity.this,
             R.id.main_container_layout) {
         @Override
@@ -60,11 +63,11 @@ public class MainActivity extends BaseMvpActivity
 
         @Override
         protected Fragment createFragment(String screenKey, Object data) {
-//            setToolbarTitle((String) data);
-//
-//            switch (screenKey) {
-//                case Constants.Screens.SONGS_FRAGMENT:
-//                    return HomeFragment.getInstance();
+            setToolbarTitle((String) data);
+
+            switch (screenKey) {
+                case Constants.Screens.SONGS_FRAGMENT:
+                    return SoundsFragment.getInstance();
 //                case Constants.Screens.FAVORITES_FRAGMENT:
 //                    return MoviesFragment.getInstance();
 //                case Constants.Screens.SET_LIST_FRAGMENT:
@@ -73,16 +76,15 @@ public class MainActivity extends BaseMvpActivity
 //                    return ActorsFragment.getInstance();
 //                case Constants.Screens.FILTERS_FRAGMENT:
 //                    return SettingsFragment.getInstance();
-//                default:
-//                    throw new RuntimeException("Unknown screen key!");
-//            }
-            return null;
+                default:
+                    throw new RuntimeException("Unknown screen key!");
+            }
         }
     };
 
     public static void start(Context context, String token) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(Constants.Extras.TOKEN, token);
+//        intent.putExtra(Constants.Extras.TOKEN, token);
         context.startActivity(intent);
     }
 
@@ -129,9 +131,9 @@ public class MainActivity extends BaseMvpActivity
 
         navigationView.setNavigationItemSelectedListener(this);
 
-//        navigationView.setCheckedItem(R.id.nav_songs);
-//        MenuItem item = navigationView.getMenu().findItem(R.id.nav_songs);
-//        presenter.onNavigationItemSelected(item);
+        navigationView.setCheckedItem(R.id.nav_songs);
+        MenuItem item = navigationView.getMenu().findItem(R.id.nav_songs);
+        presenter.onNavigationItemSelected(item);
     }
 
     @Override
