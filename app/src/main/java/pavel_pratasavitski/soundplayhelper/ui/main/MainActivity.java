@@ -22,7 +22,7 @@ import pavel_pratasavitski.soundplayhelper.R;
 import pavel_pratasavitski.soundplayhelper.application.BaseApplication;
 import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpActivity;
-import pavel_pratasavitski.soundplayhelper.ui.Sound.SoundsFragment;
+import pavel_pratasavitski.soundplayhelper.ui.sound.SoundsFragment;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;

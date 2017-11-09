@@ -1,4 +1,4 @@
-package pavel_pratasavitski.soundplayhelper.ui.Sound;
+package pavel_pratasavitski.soundplayhelper.ui.sound;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,15 +28,10 @@ public class SoundsFragment extends BaseMvpFragment implements SoundFragmentView
     @BindView(R.id.fragment_sounds_recycler_view)
     RecyclerView recyclerView;
 
-    SoundsAdapter soundsAdapter;
+    SongsAdapter songsAdapter;
 
     public static SoundsFragment getInstance() {
-        Bundle args = new Bundle();
-
-        SoundsFragment fragment = new SoundsFragment();
-        fragment.setArguments(args);
-
-        return fragment;
+        return new SoundsFragment();
     }
 
     @Override
@@ -63,12 +58,12 @@ public class SoundsFragment extends BaseMvpFragment implements SoundFragmentView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<Song> list = new ArrayList<>();
-        soundsAdapter = new SoundsAdapter(getActivity(), list);
-        recyclerView.setAdapter(soundsAdapter);
+        songsAdapter = new SongsAdapter(getActivity(), list);
+        recyclerView.setAdapter(songsAdapter);
     }
 
     @Override
     public void setSounds(List<Song> songList) {
-        soundsAdapter.setData(songList);
+        songsAdapter.setData(songList);
     }
 }
