@@ -1,6 +1,7 @@
-package pavel_pratasavitski.soundplayhelper.ui.Sound;
+package pavel_pratasavitski.soundplayhelper.ui.sound;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,26 +16,35 @@ import butterknife.ButterKnife;
 import pavel_pratasavitski.soundplayhelper.R;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 
-public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.SoundHolder> {
+public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> {
 
     private List<Song> songs;
     private Context context;
+    private OnClickListener clickListener;
 
-    public SoundsAdapter(Context con, List<Song> songs) {
+    public interface OnClickListener {
+        void onSoundClicked(View view, int position);
+    }
+
+    public void setOnClickListener(@NonNull final OnClickListener OnClickListener) {
+        clickListener = OnClickListener;
+    }
+
+    SongsAdapter(Context con, List<Song> songs) {
         this.context = con;
         this.songs = songs;
     }
 
     @Override
-    public SoundsAdapter.SoundHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public SongHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(context)
                 .inflate(R.layout.adapter_sounds, parent, false);
 
-        return new SoundHolder(v);
+        return new SongHolder(v);
     }
 
     @Override
-    public void onBindViewHolder(SoundsAdapter.SoundHolder holder, int position) {
+    public void onBindViewHolder(SongHolder holder, int position) {
         if (songs.isEmpty()) {
             return;
         }
@@ -61,7 +71,7 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.SoundHolde
         notifyDataSetChanged();
     }
 
-    public class SoundHolder extends RecyclerView.ViewHolder {
+    class SongHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
         @BindView(R.id.adapter_sounds_image_view)
         ImageView imageView;
         @BindView(R.id.adapter_sounds_name_text_view)
@@ -69,10 +79,18 @@ public class SoundsAdapter extends RecyclerView.Adapter<SoundsAdapter.SoundHolde
         @BindView(R.id.adapter_sounds_description_text_view)
         TextView descriptionTextView;
 
-        public SoundHolder(View itemView) {
+        SongHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(final View view) {
+            if (clickListener != null) {
+                clickListener.onSoundClicked(view, getAdapterPosition());
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package pavel_pratasavitski.soundplayhelper.ui.Sound;
+package pavel_pratasavitski.soundplayhelper.ui.sound;
 
 import com.arellomobile.mvp.MvpView;
 
