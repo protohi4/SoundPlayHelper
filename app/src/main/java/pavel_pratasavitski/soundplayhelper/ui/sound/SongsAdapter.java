@@ -9,11 +9,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import pavel_pratasavitski.soundplayhelper.R;
+import pavel_pratasavitski.soundplayhelper.application.glide.GlideApp;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 
 public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> {
@@ -54,11 +57,11 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> 
         holder.descriptionTextView.setText(
                 songs.get(position).getOriginalName());
 
-//        GlideApp.with(context)
-//                .load(null)
-//                .defaultOptions()
-//                .transition(DrawableTransitionOptions.withCrossFade())
-//                .into(holder.imageView);
+        GlideApp.with(context)
+                .load(null)
+                .defaultOptions()
+                .transition(DrawableTransitionOptions.withCrossFade())
+                .into(holder.imageView);
     }
 
     @Override

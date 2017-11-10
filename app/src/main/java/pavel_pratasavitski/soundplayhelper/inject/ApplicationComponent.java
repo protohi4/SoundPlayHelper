@@ -7,7 +7,7 @@ import pavel_pratasavitski.soundplayhelper.inject.module.MyModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.NavigationModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.NetworkModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.RetrofitModule;
-import pavel_pratasavitski.soundplayhelper.ui.sound.SoundsPresenter;
+import pavel_pratasavitski.soundplayhelper.ui.sound.SoundPresenter;
 import pavel_pratasavitski.soundplayhelper.ui.login.LoginPresenter;
 import pavel_pratasavitski.soundplayhelper.ui.main.MainActivity;
 import pavel_pratasavitski.soundplayhelper.ui.main.MainPresenter;
@@ -22,5 +22,5 @@ public interface ApplicationComponent {
 
     void inject(MainPresenter mainPresenter);
 
-    void inject(SoundsPresenter soundsPresenter);
+    void inject(SoundPresenter soundPresenter);
 }

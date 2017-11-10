@@ -22,7 +22,7 @@ import pavel_pratasavitski.soundplayhelper.R;
 import pavel_pratasavitski.soundplayhelper.application.BaseApplication;
 import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpActivity;
-import pavel_pratasavitski.soundplayhelper.ui.sound.SoundsFragment;
+import pavel_pratasavitski.soundplayhelper.ui.sound.SoundListFragment;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
@@ -52,8 +52,6 @@ public class MainActivity extends BaseMvpActivity
 //    @BindView(R.id.activity_main_swipe_refresh)
 //    SwipeRefreshLayout swipeRefreshLayout;
 
-    private String token;
-
     private Navigator navigator = new SupportAppNavigator(MainActivity.this,
             R.id.main_container_layout) {
         @Override
@@ -67,7 +65,7 @@ public class MainActivity extends BaseMvpActivity
 
             switch (screenKey) {
                 case Constants.Screens.SONGS_FRAGMENT:
-                    return SoundsFragment.getInstance();
+                    return SoundListFragment.getInstance();
 //                case Constants.Screens.FAVORITES_FRAGMENT:
 //                    return MoviesFragment.getInstance();
 //                case Constants.Screens.SET_LIST_FRAGMENT:
@@ -82,9 +80,8 @@ public class MainActivity extends BaseMvpActivity
         }
     };
 
-    public static void start(Context context, String token) {
+    public static void start(Context context) {
         Intent intent = new Intent(context, MainActivity.class);
-//        intent.putExtra(Constants.Extras.TOKEN, token);
         context.startActivity(intent);
     }
 

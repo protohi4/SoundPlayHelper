@@ -229,10 +229,9 @@ public class LoginActivity extends BaseMvpActivity implements LoginActivityView,
         editor.putString(Constants.Extras.TOKEN, token);
         editor.apply();
 
-        MainActivity.start(LoginActivity.this, null);
+        MainActivity.start(LoginActivity.this);
         finish();
     }
-
 
     private interface ProfileQuery {
         String[] PROJECTION = {
