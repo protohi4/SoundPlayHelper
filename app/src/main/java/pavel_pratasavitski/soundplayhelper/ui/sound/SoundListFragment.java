@@ -97,6 +97,6 @@ public class SoundListFragment extends BaseMvpFragment
 
     @Override
     public void onSoundClicked(View view, int position) {
-        OneSoundActivity.start(getActivity(), position);
+//        OneSoundActivity.start(getActivity(), position);
     }
 }
