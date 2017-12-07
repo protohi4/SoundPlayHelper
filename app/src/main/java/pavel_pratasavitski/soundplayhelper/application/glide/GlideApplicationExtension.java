@@ -18,7 +18,7 @@ public class GlideApplicationExtension {
     public static void defaultOptions(final RequestOptions options) {
         options
                 .placeholder(R.color.color_dark_background)
-                .fallback(R.color.color_dark_background)
+                .fallback(R.drawable.icon_default_image)
                 .error(R.color.color_dark_background)
                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                 .priority(Priority.HIGH);

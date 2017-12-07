@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.arellomobile.mvp.presenter.InjectPresenter;
 
@@ -20,18 +22,22 @@ import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpFragment;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 
-public class SoundsFragment extends BaseMvpFragment implements SoundFragmentView {
+public class SoundListFragment extends BaseMvpFragment
+        implements SoundFragmentView, SongsAdapter.OnClickListener {
 
     @InjectPresenter
-    SoundsPresenter presenter;
+    SoundPresenter presenter;
 
     @BindView(R.id.fragment_sounds_recycler_view)
     RecyclerView recyclerView;
 
+    @BindView(R.id.fragment_sounds_search_view)
+    SearchView searchView;
+
     SongsAdapter songsAdapter;
 
-    public static SoundsFragment getInstance() {
-        return new SoundsFragment();
+    public static SoundListFragment getInstance() {
+        return new SoundListFragment();
     }
 
     @Override
@@ -53,17 +59,46 @@ public class SoundsFragment extends BaseMvpFragment implements SoundFragmentView
                 getSharedPreferences(Constants.SHARED_PREFERENCES, 0);
         String token = settings.getString(Constants.Extras.TOKEN, null);
 
-        presenter.getDate(token, false);
+        presenter.getDate(token, true);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
         List<Song> list = new ArrayList<>();
         songsAdapter = new SongsAdapter(getActivity(), list);
         recyclerView.setAdapter(songsAdapter);
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                songsAdapter.setData(presenter.search(query));
+
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                songsAdapter.setData(presenter.search(newText));
+
+                return false;
+            }
+        });
+
+        songsAdapter.setOnClickListener(this);
     }
 
     @Override
     public void setSounds(List<Song> songList) {
         songsAdapter.setData(songList);
+    }
+
+    @Override
+    public void showError(Throwable e) {
+        Toast.makeText(getActivity(),
+                "Can't get data from server", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSoundClicked(View view, int position) {
+        presenter.onSoundClick(getActivity(), position);
     }
 }

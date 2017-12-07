@@ -1,43 +1,46 @@
 package pavel_pratasavitski.soundplayhelper.pojo.songs;
 
-import com.google.gson.annotations.Expose;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Song {
+import io.objectbox.annotation.Id;
+
+@Entity(tableName = "songs")
+public class Song implements Serializable {
+//    @Id
+//    public long mId;
+
     @SerializedName("Id")
-    @Expose
+    @PrimaryKey
+    @NonNull
     private String id;
     @SerializedName("Name")
-    @Expose
     private String name;
     @SerializedName("OriginalName")
-    @Expose
     private String originalName;
     @SerializedName("Author")
-    @Expose
-    private Object author;
+    private String author;
     @SerializedName("Text")
-    @Expose
-    private Object text;
+    private String text;
     @SerializedName("Chords")
-    @Expose
     private String chords;
     @SerializedName("Tempo")
-    @Expose
-    private Integer tempo;
+    private int tempo;
     @SerializedName("ReleaseDate")
-    @Expose
     private String releaseDate;
     @SerializedName("EditedOn")
-    @Expose
     private String editedOn;
     @SerializedName("CreatedOn")
-    @Expose
     private String createdOn;
+    @Ignore
     @SerializedName("Tags")
-    @Expose
     private List<Object> tags = null;
 
     public String getId() {
@@ -64,19 +67,19 @@ public class Song {
         this.originalName = originalName;
     }
 
-    public Object getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Object author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public Object getText() {
+    public String getText() {
         return text;
     }
 
-    public void setText(Object text) {
+    public void setText(String text) {
         this.text = text;
     }
 
@@ -88,11 +91,11 @@ public class Song {
         this.chords = chords;
     }
 
-    public Integer getTempo() {
+    public int getTempo() {
         return tempo;
     }
 
-    public void setTempo(Integer tempo) {
+    public void setTempo(int tempo) {
         this.tempo = tempo;
     }
 

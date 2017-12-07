@@ -1,30 +1,53 @@
 package pavel_pratasavitski.soundplayhelper.ui.sound;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.InjectViewState;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import io.objectbox.Box;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import pavel_pratasavitski.soundplayhelper.application.BaseApplication;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpPresenter;
 import pavel_pratasavitski.soundplayhelper.inject.LoginInterface;
+import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.SongList;
 
 @InjectViewState
-public class SoundsPresenter extends BaseMvpPresenter<SoundFragmentView> {
+public class SoundPresenter extends BaseMvpPresenter<SoundFragmentView> {
 
     @Inject
     LoginInterface loginInterface;
 
-    public SoundsPresenter() {
+    private List<Song> songs;
+//    private Box<Song> itemBox;
+
+    SoundPresenter() {
         BaseApplication.getApplicationComponent().inject(this);
+
+//        itemBox = BaseApplication.getBoxStore().boxFor(Song.class);
     }
 
-    public void getDate(String token, boolean isRequested) {
+    void getDate(String token, boolean isRequested) {
+        songs = new ArrayList<>();
         loginInterface.getSongs(token, isRequested)
+                .map(new Function<SongList, SongList>() {
+                    @Override
+                    public SongList apply(SongList songList) throws Exception {
+                        songs = songList.getSongs();
+//                        itemBox.put(songs);
+
+                        return songList;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Observer<SongList>() {
@@ -40,7 +63,7 @@ public class SoundsPresenter extends BaseMvpPresenter<SoundFragmentView> {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        getViewState().showError(e);
                     }
 
                     @Override
@@ -48,5 +71,21 @@ public class SoundsPresenter extends BaseMvpPresenter<SoundFragmentView> {
 
                     }
                 });
+    }
+
+    List<Song> search(String newText) {
+        List<Song> resultList = new ArrayList<>();
+
+        for (Song song : songs) {
+            if (song.getName().toLowerCase().contains(newText.toLowerCase())) {
+                resultList.add(song);
+            }
+        }
+
+        return resultList;
+    }
+
+    void onSoundClick(Context context, int position) {
+        OneSoundActivity.start(context, songs.get(position));
     }
 }

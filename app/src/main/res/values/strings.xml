@@ -21,8 +21,13 @@
     <string name="favorites">FAVORITES</string>
     <string name="setlists">SETLISTS</string>
     <string name="account">ACCOUNT</string>
+
     <string name="refresh">Refresh</string>
     <string name="add_song">Add song</string>
     <string name="sorting">Sorting (upload date)</string>
 
+    <string name="search_hint">Search in titles</string>
+    <string name="title_activity_one_sound">OneSoundActivity</string>
+    <string name="chords">Chords:</string>
+    <string name="text">Text:</string>
 </resources>
