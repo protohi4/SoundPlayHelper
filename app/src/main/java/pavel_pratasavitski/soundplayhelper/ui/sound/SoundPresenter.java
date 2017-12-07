@@ -1,5 +1,7 @@
 package pavel_pratasavitski.soundplayhelper.ui.sound;
 
+import android.content.Context;
+
 import com.arellomobile.mvp.InjectViewState;
 
 import java.util.ArrayList;
@@ -7,6 +9,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.objectbox.Box;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -25,9 +28,12 @@ public class SoundPresenter extends BaseMvpPresenter<SoundFragmentView> {
     LoginInterface loginInterface;
 
     private List<Song> songs;
+//    private Box<Song> itemBox;
 
     SoundPresenter() {
         BaseApplication.getApplicationComponent().inject(this);
+
+//        itemBox = BaseApplication.getBoxStore().boxFor(Song.class);
     }
 
     void getDate(String token, boolean isRequested) {
@@ -37,6 +43,7 @@ public class SoundPresenter extends BaseMvpPresenter<SoundFragmentView> {
                     @Override
                     public SongList apply(SongList songList) throws Exception {
                         songs = songList.getSongs();
+//                        itemBox.put(songs);
 
                         return songList;
                     }
@@ -76,5 +83,9 @@ public class SoundPresenter extends BaseMvpPresenter<SoundFragmentView> {
         }
 
         return resultList;
+    }
+
+    void onSoundClick(Context context, int position) {
+        OneSoundActivity.start(context, songs.get(position));
     }
 }

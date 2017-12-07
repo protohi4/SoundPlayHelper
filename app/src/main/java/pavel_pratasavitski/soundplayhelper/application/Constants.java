@@ -9,6 +9,9 @@ public class Constants {
     public static final String PASSWORD = "GodIsMyAll";
 
     public static final String SHARED_PREFERENCES = "preferences_file";
+    public static final String DATABASE_NAME = "sound_play_helper.db";
+
+    public static final String NO_INFORMATION_MESSAGE = "No information";
 
     public interface NetworkingConfig {
         int TIMEOUT = 20;

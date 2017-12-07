@@ -28,4 +28,6 @@
 
     <string name="search_hint">Search in titles</string>
     <string name="title_activity_one_sound">OneSoundActivity</string>
+    <string name="chords">Chords:</string>
+    <string name="text">Text:</string>
 </resources>

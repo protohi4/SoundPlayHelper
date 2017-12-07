@@ -82,6 +82,8 @@ public class SoundListFragment extends BaseMvpFragment
                 return false;
             }
         });
+
+        songsAdapter.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +99,6 @@ public class SoundListFragment extends BaseMvpFragment
 
     @Override
     public void onSoundClicked(View view, int position) {
-//        OneSoundActivity.start(getActivity(), position);
+        presenter.onSoundClick(getActivity(), position);
     }
 }
