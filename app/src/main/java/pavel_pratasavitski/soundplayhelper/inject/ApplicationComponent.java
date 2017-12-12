@@ -3,7 +3,7 @@ package pavel_pratasavitski.soundplayhelper.inject;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import pavel_pratasavitski.soundplayhelper.inject.module.BaseModule;
+import pavel_pratasavitski.soundplayhelper.inject.module.DataBaseModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.LoginModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.MainModule;
 import pavel_pratasavitski.soundplayhelper.inject.module.NavigationModule;
@@ -17,7 +17,7 @@ import pavel_pratasavitski.soundplayhelper.ui.sound.SongListPresenter;
 
 @Singleton
 @Component(modules = {MainModule.class, NetworkModule.class, RetrofitModule.class,
-        LoginModule.class, NavigationModule.class, BaseModule.class})
+        LoginModule.class, NavigationModule.class, DataBaseModule.class})
 public interface ApplicationComponent {
     void inject(MainActivity mainActivity);
 

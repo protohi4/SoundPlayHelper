@@ -13,7 +13,7 @@ import pavel_pratasavitski.soundplayhelper.pojo.songs.MyObjectBox;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 
 @Module
-public class BaseModule {
+public class DataBaseModule {
 
     @Provides
     @NonNull
