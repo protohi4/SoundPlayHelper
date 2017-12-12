@@ -22,11 +22,11 @@ import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpFragment;
 import pavel_pratasavitski.soundplayhelper.pojo.songs.Song;
 
-public class SoundListFragment extends BaseMvpFragment
-        implements SoundFragmentView, SongsAdapter.OnClickListener {
+public class SongListFragment extends BaseMvpFragment
+        implements SongFragmentView, SongsAdapter.OnClickListener {
 
     @InjectPresenter
-    SoundPresenter presenter;
+    SongListPresenter presenter;
 
     @BindView(R.id.fragment_sounds_recycler_view)
     RecyclerView recyclerView;
@@ -36,8 +36,8 @@ public class SoundListFragment extends BaseMvpFragment
 
     SongsAdapter songsAdapter;
 
-    public static SoundListFragment getInstance() {
-        return new SoundListFragment();
+    public static SongListFragment getInstance() {
+        return new SongListFragment();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class SoundListFragment extends BaseMvpFragment
                 getSharedPreferences(Constants.SHARED_PREFERENCES, 0);
         String token = settings.getString(Constants.Extras.TOKEN, null);
 
-        presenter.getDate(token, true);
+        presenter.getDate(token, false);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
@@ -70,7 +70,6 @@ public class SoundListFragment extends BaseMvpFragment
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                songsAdapter.setData(presenter.search(query));
 
                 return false;
             }
@@ -87,18 +86,25 @@ public class SoundListFragment extends BaseMvpFragment
     }
 
     @Override
-    public void setSounds(List<Song> songList) {
+    public void setSounds(final List<Song> songList) {
         songsAdapter.setData(songList);
     }
 
     @Override
-    public void showError(Throwable e) {
+    public void showError(final List<Song> songList) {
+        songsAdapter.setData(songList);
         Toast.makeText(getActivity(),
-                "Can't get data from server", Toast.LENGTH_SHORT).show();
+                "Can't get data from server! " +
+                        "Load from DB", Toast.LENGTH_LONG).show();
     }
 
     @Override
-    public void onSoundClicked(View view, int position) {
-        presenter.onSoundClick(getActivity(), position);
+    public void onSoundClicked(final View view, final int id) {
+        presenter.onSoundClick(getActivity(), id);
+    }
+
+    @Override
+    public void onFavoriteClick(long id) {
+        presenter.onFavoriteClick(id);
     }
 }

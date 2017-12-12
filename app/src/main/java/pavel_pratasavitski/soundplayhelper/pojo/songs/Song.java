@@ -1,54 +1,63 @@
 package pavel_pratasavitski.soundplayhelper.pojo.songs;
 
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
-import android.support.annotation.NonNull;
-
 import com.google.gson.annotations.SerializedName;
 
-import java.io.Serializable;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
+import io.objectbox.annotation.Convert;
+import io.objectbox.annotation.Entity;
 import io.objectbox.annotation.Id;
+import io.objectbox.annotation.Index;
+import io.objectbox.annotation.Transient;
+import io.objectbox.converter.PropertyConverter;
+import okio.Buffer;
+import okio.ByteString;
 
-@Entity(tableName = "songs")
-public class Song implements Serializable {
-//    @Id
-//    public long mId;
+@Entity
+public class Song {
+    @Id
+    public long id;
 
     @SerializedName("Id")
-    @PrimaryKey
-    @NonNull
-    private String id;
+    public String serversId;
     @SerializedName("Name")
-    private String name;
+    @Index
+    public String name;
     @SerializedName("OriginalName")
-    private String originalName;
+    @Index
+    public String originalName;
     @SerializedName("Author")
-    private String author;
+    public String author;
     @SerializedName("Text")
-    private String text;
+    public String text;
     @SerializedName("Chords")
-    private String chords;
+    public String chords;
     @SerializedName("Tempo")
-    private int tempo;
+    public int tempo;
     @SerializedName("ReleaseDate")
-    private String releaseDate;
+    public String releaseDate;
     @SerializedName("EditedOn")
-    private String editedOn;
+    public String editedOn;
     @SerializedName("CreatedOn")
-    private String createdOn;
-    @Ignore
-    @SerializedName("Tags")
-    private List<Object> tags = null;
+    public String createdOn;
+    public boolean isFavorite;
+//    @SerializedName("Tags")
+//    @Convert(converter = TagConverter.class, dbType = String.class)
+    @Transient
+    public List<String> tags;
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getServersId() {
+        return serversId;
+    }
+
+    public void setServersId(String serversId) {
+        this.serversId = serversId;
     }
 
     public String getName() {
@@ -123,12 +132,61 @@ public class Song implements Serializable {
         this.createdOn = createdOn;
     }
 
-    public List<Object> getTags() {
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
+
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setTags(List<Object> tags) {
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
+    public static class TagConverter implements PropertyConverter<List<String>, String> {
+
+        private static final ByteString SEMICOLON = ByteString.decodeBase64(";");
+
+        @Override
+        public List<String> convertToEntityProperty(String s) {
+            if (s == null) {
+                return new ArrayList<>();
+            }
+            try {
+                List<String> ids = new ArrayList<>();
+                Buffer buffer = new Buffer();
+                buffer.writeUtf8(s);
+                long index;
+                while ((index = buffer.indexOf(SEMICOLON)) != -1) {
+                    ids = add(Long.parseLong(buffer.readUtf8(index - 1)), ids);
+                }
+                return ids;
+            } catch (IOException io) {
+                io.printStackTrace();
+                return new ArrayList<>();
+            }
+        }
+
+        public List<String> add(long id, List<String> values) {
+            List<String> anotherArray = new ArrayList<>();
+            anotherArray.addAll(values);
+            anotherArray.add(String.valueOf(id));
+            return anotherArray;
+        }
+
+        @Override
+        public String convertToDatabaseValue(List<String> integers) {
+            Buffer buffer = new Buffer();
+            for (String value : integers) {
+                buffer.write(SEMICOLON);
+                buffer.writeUtf8(String.valueOf(value));
+            }
+            return buffer.toString();
+        }
+    }
 }

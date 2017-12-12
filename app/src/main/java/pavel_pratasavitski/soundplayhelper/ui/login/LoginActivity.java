@@ -48,6 +48,8 @@ public class LoginActivity extends BaseMvpActivity implements LoginActivityView,
     EditText mPasswordView;
     @BindView(R.id.email_sign_in_button)
     Button mEmailSignInButton;
+    @BindView(R.id.activity_login_connection_error)
+    TextView errorTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -236,6 +238,14 @@ public class LoginActivity extends BaseMvpActivity implements LoginActivityView,
 
         MainActivity.start(LoginActivity.this);
         finish();
+    }
+
+    @Override
+    public void onError() {
+        int shortAnimTime = getResources().getInteger(android.R.integer.config_shortAnimTime);
+        mProgressView.animate().setDuration(shortAnimTime).alpha(0);
+
+        errorTextView.setVisibility(View.VISIBLE);
     }
 
     private interface ProfileQuery {

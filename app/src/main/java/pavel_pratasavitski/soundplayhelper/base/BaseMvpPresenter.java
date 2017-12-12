@@ -1,5 +1,7 @@
 package pavel_pratasavitski.soundplayhelper.base;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
 import android.support.annotation.NonNull;
 
 import com.arellomobile.mvp.MvpPresenter;
@@ -21,5 +23,13 @@ public class BaseMvpPresenter<View extends MvpView> extends MvpPresenter<View> {
         super.onDestroy();
 
         compositeDisposable.clear();
+    }
+
+    protected boolean isInternetConnection(@NonNull final Context context) {
+        final ConnectivityManager cm = (ConnectivityManager)
+                context.getSystemService(Context.CONNECTIVITY_SERVICE);
+
+        return (cm != null ? cm.getActiveNetworkInfo() : null) != null &&
+                cm.getActiveNetworkInfo().isConnectedOrConnecting();
     }
 }

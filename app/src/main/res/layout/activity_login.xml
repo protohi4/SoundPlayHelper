@@ -19,6 +19,15 @@
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
 
+    <TextView
+        style="@style/TextAppearance.AppCompat.Subhead"
+        android:id="@+id/activity_login_connection_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/internet_connection_error"
+        android:visibility="gone" />
+
     <ScrollView
         android:id="@+id/login_form"
         android:layout_width="match_parent"

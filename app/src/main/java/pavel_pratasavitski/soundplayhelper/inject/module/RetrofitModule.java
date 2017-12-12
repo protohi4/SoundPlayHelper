@@ -14,10 +14,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class RetrofitModule {
     @NonNull
-    private final String movieDbUrl;
+    private final String baseUrl;
 
-    public RetrofitModule(@NonNull final String movieDbUrl) {
-        this.movieDbUrl = movieDbUrl;
+    public RetrofitModule(@NonNull final String baseUrl) {
+        this.baseUrl = baseUrl;
     }
 
     @Provides
@@ -26,7 +26,7 @@ public class RetrofitModule {
         final OkHttpClient.Builder okHttpBuilder = okHttpClient.newBuilder();
 
         return new Retrofit.Builder()
-                .baseUrl(movieDbUrl)
+                .baseUrl(baseUrl)
                 .client(okHttpBuilder.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())

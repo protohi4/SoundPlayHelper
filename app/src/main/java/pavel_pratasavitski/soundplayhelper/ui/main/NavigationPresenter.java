@@ -13,15 +13,15 @@ import pavel_pratasavitski.soundplayhelper.base.BaseMvpPresenter;
 import ru.terrakok.cicerone.Router;
 
 @InjectViewState
-public class MainPresenter extends BaseMvpPresenter<MainPresenterView> {
+public class NavigationPresenter extends BaseMvpPresenter<MainPresenterView> {
     @Inject
     Router router;
 
-    public MainPresenter() {
+    public NavigationPresenter() {
         BaseApplication.getApplicationComponent().inject(this);
     }
 
-    void onNavigationItemSelected(MenuItem item) {
+    void onNavigationItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_songs:
                 router.replaceScreen(Constants.Screens.SONGS_FRAGMENT, item.getTitle());
@@ -42,7 +42,7 @@ public class MainPresenter extends BaseMvpPresenter<MainPresenterView> {
         }
     }
 
-    void onOptionsItemSelected(MenuItem item) {
+    void onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_filters:
 //                router.navigateTo(Constants.Screens.FILTERS_FRAGMENT, item.getTitle());

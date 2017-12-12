@@ -4,27 +4,84 @@
   "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
   "entities": [
     {
-      "id": "1:3861756021961003314",
-      "lastPropertyId": "1:1606620727225775031",
-      "name": "Item",
+      "id": "2:1255651742021027899",
+      "lastPropertyId": "17:7782402126305444542",
+      "name": "Song",
       "properties": [
         {
-          "id": "1:1606620727225775031",
+          "id": "1:4962425019129071413",
           "name": "id"
+        },
+        {
+          "id": "3:2786443406077259026",
+          "indexId": "1:7365380160678398832",
+          "name": "name"
+        },
+        {
+          "id": "4:4348075645262407404",
+          "indexId": "2:3014631658655236146",
+          "name": "originalName"
+        },
+        {
+          "id": "5:2083500781758358824",
+          "name": "author"
+        },
+        {
+          "id": "6:4674139882254193880",
+          "name": "text"
+        },
+        {
+          "id": "7:5502927044422537964",
+          "name": "chords"
+        },
+        {
+          "id": "8:5129772286736145543",
+          "name": "tempo"
+        },
+        {
+          "id": "9:8758015148936945203",
+          "name": "releaseDate"
+        },
+        {
+          "id": "10:1568230891485404512",
+          "name": "editedOn"
+        },
+        {
+          "id": "11:8381364076679386549",
+          "name": "createdOn"
+        },
+        {
+          "id": "13:519340284213687232",
+          "name": "isFavorite"
+        },
+        {
+          "id": "14:1813152037958897878",
+          "name": "serversId"
         }
       ],
       "relations": []
     }
   ],
-  "lastEntityId": "1:3861756021961003314",
-  "lastIndexId": "0:0",
+  "lastEntityId": "2:1255651742021027899",
+  "lastIndexId": "2:3014631658655236146",
   "lastRelationId": "0:0",
   "lastSequenceId": "0:0",
   "modelVersion": 4,
   "modelVersionParserMinimum": 4,
-  "retiredEntityUids": [],
+  "retiredEntityUids": [
+    3861756021961003314
+  ],
   "retiredIndexUids": [],
-  "retiredPropertyUids": [],
+  "retiredPropertyUids": [
+    7131114042221050524,
+    1606620727225775031,
+    2377425081133015239,
+    6019398715941794505,
+    5870597661313209921,
+    6314041762238806737,
+    6736111182616178141,
+    7782402126305444542
+  ],
   "retiredRelationUids": [],
   "version": 1
 }

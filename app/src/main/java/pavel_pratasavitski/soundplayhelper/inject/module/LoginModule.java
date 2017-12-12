@@ -8,7 +8,7 @@ import pavel_pratasavitski.soundplayhelper.inject.LoginInterface;
 import retrofit2.Retrofit;
 
 @Module
-public class MyModule {
+public class LoginModule {
 
     @Provides
     @Singleton

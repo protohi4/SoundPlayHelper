@@ -45,7 +45,7 @@ ext.versions = [
         autoValue               : '1.2',
         autoValueGson           : '0.4.5',
 
-        room                    : '1.0.0',
+//        room                    : '1.0.0',
 
         objectbox               : '1.3.3'
 ]
@@ -97,6 +97,8 @@ ext.libraries = [
         autoValue               : "com.google.auto.value:auto-value:$versions.autoValue",
         autoValueCompiler       : "com.google.auto.value:auto-value:$versions.autoValue",
 
-        room                    : "android.arch.persistence.room:runtime:$versions.room",
-        roomCompiler            : "android.arch.persistence.room:compiler:$versions.room"
+//        room                    : "android.arch.persistence.room:runtime:$versions.room",
+//        roomCompiler            : "android.arch.persistence.room:compiler:$versions.room"
+
+        objectBox               : "io.objectbox:objectbox-gradle-plugin:$versions.objectbox"
 ]

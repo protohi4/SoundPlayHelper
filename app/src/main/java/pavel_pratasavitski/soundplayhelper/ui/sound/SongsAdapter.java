@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,9 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> 
     private OnClickListener clickListener;
 
     public interface OnClickListener {
-        void onSoundClicked(View view, int position);
+        void onSoundClicked(View view, int id);
+
+        void onFavoriteClick(long id);
     }
 
     public void setOnClickListener(@NonNull final OnClickListener OnClickListener) {
@@ -56,6 +59,7 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> 
                 songs.get(position).getName());
         holder.descriptionTextView.setText(
                 songs.get(position).getOriginalName());
+        holder.favoriteButton.setSelected(songs.get(position).isFavorite());
 
         GlideApp.with(context)
                 .load(null)
@@ -81,18 +85,31 @@ public class SongsAdapter extends RecyclerView.Adapter<SongsAdapter.SongHolder> 
         TextView nameTextView;
         @BindView(R.id.adapter_sounds_description_text_view)
         TextView descriptionTextView;
+        @BindView(R.id.adapter_sounds_favorite_button)
+        Button favoriteButton;
 
         SongHolder(View itemView) {
             super(itemView);
 
             ButterKnife.bind(this, itemView);
             itemView.setOnClickListener(this);
+            favoriteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(final View view) {
+                    final Song song = songs.get(getAdapterPosition());
+
+                    song.setFavorite(!song.isFavorite());
+                    notifyItemChanged(getAdapterPosition());
+                    clickListener.onFavoriteClick(song.getId());
+                }
+            });
         }
 
         @Override
         public void onClick(final View view) {
             if (clickListener != null) {
-                clickListener.onSoundClicked(view, getAdapterPosition());
+                clickListener.onSoundClicked(view,
+                        (int) songs.get(getAdapterPosition()).getId());
             }
         }
     }

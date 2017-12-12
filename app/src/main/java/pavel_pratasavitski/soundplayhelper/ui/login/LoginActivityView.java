@@ -4,4 +4,6 @@ import com.arellomobile.mvp.MvpView;
 
 public interface LoginActivityView extends MvpView{
     void startMainActivity(String token);
+
+    void onError();
 }

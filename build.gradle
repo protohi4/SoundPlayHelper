@@ -12,7 +12,7 @@ buildscript {
     dependencies {
         classpath gradlePlugins.android
         classpath gradlePlugins.gradleVersions
-        classpath "io.objectbox:objectbox-gradle-plugin:$versions.objectbox"
+        classpath libraries.objectBox
     }
 }
 

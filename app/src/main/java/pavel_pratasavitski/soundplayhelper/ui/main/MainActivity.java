@@ -22,7 +22,7 @@ import pavel_pratasavitski.soundplayhelper.R;
 import pavel_pratasavitski.soundplayhelper.application.BaseApplication;
 import pavel_pratasavitski.soundplayhelper.application.Constants;
 import pavel_pratasavitski.soundplayhelper.base.BaseMvpActivity;
-import pavel_pratasavitski.soundplayhelper.ui.sound.SoundListFragment;
+import pavel_pratasavitski.soundplayhelper.ui.sound.SongListFragment;
 import ru.terrakok.cicerone.Navigator;
 import ru.terrakok.cicerone.NavigatorHolder;
 import ru.terrakok.cicerone.android.SupportAppNavigator;
@@ -35,7 +35,7 @@ public class MainActivity extends BaseMvpActivity
     NavigatorHolder navigatorHolder;
 
     @InjectPresenter
-    MainPresenter presenter;
+    NavigationPresenter presenter;
 
     @BindView(R.id.main_navigation_view)
     NavigationView navigationView;
@@ -60,12 +60,12 @@ public class MainActivity extends BaseMvpActivity
         }
 
         @Override
-        protected Fragment createFragment(String screenKey, Object data) {
+        protected Fragment createFragment(final String screenKey, final Object data) {
             setToolbarTitle((String) data);
 
             switch (screenKey) {
                 case Constants.Screens.SONGS_FRAGMENT:
-                    return SoundListFragment.getInstance();
+                    return SongListFragment.getInstance();
 //                case Constants.Screens.FAVORITES_FRAGMENT:
 //                    return MoviesFragment.getInstance();
 //                case Constants.Screens.SET_LIST_FRAGMENT:
@@ -80,7 +80,7 @@ public class MainActivity extends BaseMvpActivity
         }
     };
 
-    public static void start(Context context) {
+    public static void start(final Context context) {
         Intent intent = new Intent(context, MainActivity.class);
         context.startActivity(intent);
     }
@@ -143,7 +143,7 @@ public class MainActivity extends BaseMvpActivity
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(final Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
 
@@ -151,7 +151,7 @@ public class MainActivity extends BaseMvpActivity
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(final MenuItem item) {
         presenter.onOptionsItemSelected(item);
 
         return super.onOptionsItemSelected(item);
@@ -159,7 +159,7 @@ public class MainActivity extends BaseMvpActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(final MenuItem item) {
         drawerLayout.closeDrawer(GravityCompat.START);
         presenter.onNavigationItemSelected(item);
 

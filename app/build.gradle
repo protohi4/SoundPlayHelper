@@ -73,7 +73,7 @@ dependencies {
     //cicerone
     compile libraries.cicerone
 
-    //room
-    compile libraries.room
-    annotationProcessor libraries.roomCompiler
+//    //room
+//    compile libraries.room
+//    annotationProcessor libraries.roomCompiler
 }
